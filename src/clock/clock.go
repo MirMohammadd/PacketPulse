@@ -13,3 +13,8 @@ type clock struct {
 	mtx       *sync.Mutex
 	DumpChan  chan bool
 }
+
+func (c *clock) Init() {
+	c.mtx = new(sync.Mutex)
+	c.DumpChan = make(chan bool)
+}
