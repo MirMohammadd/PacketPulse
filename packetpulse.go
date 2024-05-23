@@ -50,5 +50,8 @@ func main() {
 		fmt.Printf("%sApplication Layer data extracted:%s\n", green, reset)
 		fmt.Println("---------------------------------------------------------------------------------------")
 		fmt.Println(packet.ApplicationLayer())
+		fmt.Println("---------------------------------------------------------------------------------------")
+		fmt.Printf("%sDumped data extracted:%s\n", green, reset)
+		fmt.Println(packet.Dump())
 	}
 }
