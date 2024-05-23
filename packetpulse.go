@@ -4,11 +4,16 @@ import (
 	"fmt"
 	"log"
 
+	"time"
+
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/pcap"
 )
 
 func main() {
+	// red := "\033[31m"
+	green := "\033[32m"
+	reset := "\033[0m"
 	// Find all devices
 	devices, err := pcap.FindAllDevs()
 	if err != nil {
@@ -35,6 +40,15 @@ func main() {
 	// Start processing packets
 	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
 	for packet := range packetSource.Packets() {
-		fmt.Println(packet)
+		fmt.Printf("%sPacket Raw data:%s\n", green, reset)
+		fmt.Println("---------------------------------------------------------------------------------------")
+		fmt.Println(packet.Data())
+		time.Sleep(3 * time.Second)
+		fmt.Printf("%sNetwork Layer data extracted:%s\n", green, reset)
+		fmt.Println("---------------------------------------------------------------------------------------")
+		fmt.Println(packet.NetworkLayer())
+		fmt.Printf("%sApplication Layer data extracted:%s\n", green, reset)
+		fmt.Println("---------------------------------------------------------------------------------------")
+		fmt.Println(packet.ApplicationLayer())
 	}
 }
